@@ -1,0 +1,15 @@
+@model List<Item>
+@using ProyectoNuevo.Models
+
+@foreach (var item in @Model)
+{
+    <h2>Detalles del producto </h2>
+    <p><strong>ID:</strong> @item.id</p>
+    <p><strong>Nombre:</strong> @item.name</p>
+    <p><strong>Tipo:</strong> @item.type</p>
+    <p><strong>STR</strong> @item.STR</p>
+    <p><strong>AGI:</strong> @item.AGI</p>
+    <p><strong>INTE:</strong> @item.INTE</p>
+    <p><strong>MND:</strong> @item.MND</p>
+    <p><strong>VIT:</strong> @item.VIT</p>
+}

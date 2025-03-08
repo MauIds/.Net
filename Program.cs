@@ -1,7 +1,15 @@
+
+using Microsoft.EntityFrameworkCore;
+using ProyectoNuevo.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<MysqlDbContext>(options =>
+    options.UseMySql(builder.Configuration.GetConnectionString("MysqlConnection"),
+    ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("MysqlConnection"))));
 
 var app = builder.Build();
 
@@ -27,3 +35,4 @@ app.MapControllerRoute(
 
 
 app.Run();
+
