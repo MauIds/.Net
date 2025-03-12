@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProyectoNuevo.Data;
 using ProyectoNuevo.Models;
 
@@ -39,11 +40,33 @@ public class HomeController : Controller
         return View(item);
     }
 
-    public IActionResult verItems(int id){
-        List<Item>arrItems =context.items.ToList();
+    public async Task<IActionResult> verItems(int id){
+        List<Item>arrItems = await context.items.ToListAsync();
         return View(arrItems); 
         } 
        
+    public async Task<IActionResult> verItem(int id){
+        Item? item = await context.items.FindAsync(id);
+        if(item == null) return NotFound();
+        return View("ItemMuestra", item);
+    }
+    //Crear
+    [HttpGet]
+    public IActionResult Crear(){
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Crear(Item item){
+        if(item == null) return Error();{
+        if (ModelState.IsValid){
+            context.items.Add(item);
+            await context.SaveChangesAsync();
+            RedirectToAction("verItems");
+        }
+        return View(item);
+    }
+    }
     [HttpGet("Home/Elitem/{id}/{name}")]
     public IActionResult Elitem(int id, string name){
         return Content($"El item seleccionado es {name} con id {id}");
