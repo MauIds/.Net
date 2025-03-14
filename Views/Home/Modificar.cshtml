@@ -1,0 +1,30 @@
+@*
+*@
+@model Item
+<FORM method = "POST" action = "nuevo_usuario.php">
+    <label> ID: </label>
+    <input asp-for="id" readonly />
+    <span asp-asp-validation-for="id" style="color:red"></span><br />
+    <LABEL>Nombre: </LABEL>
+    <INPUT asp-for="name" />
+    <span asp-asp-validation-for="name" style="color:red"></span><br />
+	<LABEL>Type: </LABEL>
+	<INPUT asp-for="type" />
+	<span asp-asp-validation-for="type" style="color:red"></span><br />
+	<LABEL>STR: </LABEL>
+	<INPUT asp-for="STR" />
+	<span asp-asp-validation-for="STR" style="color:red"></span><br />
+	<LABEL>AGI: </LABEL>
+	<INPUT asp-for="AGI" />
+	<span asp-asp-validation-for="AGI" style="color:red"></span><br />
+	<LABEL>INTE: </LABEL>
+	<INPUT asp-for="INTE" />
+	<span asp-asp-validation-for="INTE" style="color:red"></span><br />
+	<LABEL>MND: </LABEL>
+	<INPUT asp-for="MND" />
+	<span asp-asp-validation-for="MND" style="color:red"></span><br />
+	<LABEL>VIT: </LABEL>
+	<INPUT asp-for="VIT" />
+	<span asp-asp-validation-for="VIT" style="color:red"></span><br />
+	<button type="submit">Enviar</button>
+</FORM>

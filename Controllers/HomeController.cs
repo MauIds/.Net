@@ -1,3 +1,4 @@
+using System.Data;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -57,6 +58,7 @@ public class HomeController : Controller
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Crear(Item item){
         if(item == null) return Error();{
         if (ModelState.IsValid){
@@ -67,6 +69,32 @@ public class HomeController : Controller
         return View(item);
     }
     }
+
+    //modificar
+    [HttpGet]
+    public async Task<IActionResult> Modificar(int id){
+        Item? item = await context.items.FindAsync(id);
+        if(item == null) return NotFound();
+        return View(item);
+    }   
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Modificar(Item item){
+        if(ModelState.IsValid){
+            try{
+                context.items.Update(item);
+                await context.SaveChangesAsync();
+        }
+        catch(DBConcurrencyException){
+            return Content("Error al modificar el item");
+        }
+        return RedirectToAction("verItems");
+    }
+    return View(item);
+    }
+    
+
+
     [HttpGet("Home/Elitem/{id}/{name}")]
     public IActionResult Elitem(int id, string name){
         return Content($"El item seleccionado es {name} con id {id}");
